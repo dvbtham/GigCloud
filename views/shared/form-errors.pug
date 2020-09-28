@@ -1,0 +1,5 @@
+if errors.type === 'server' && errors.errors.length > 0
+  .alert.alert-danger
+    ul
+    each err in errors.errors
+      li=err

@@ -72,9 +72,19 @@ textarea {
   border-radius: 0px !important;
 }
 
+.btn-logout, .btn-logout:hover {
+  background-color: transparent;
+  border: none;
+  color: #333;
+}
+
 /* Bootstrap overrides */
 .active>a {
-  background-color: #d04646 !important;
+  background-color: #e41414 !important;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .navbar-inverse,

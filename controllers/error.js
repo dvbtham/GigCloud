@@ -1,3 +1,3 @@
 module.exports.getNotFoundPage = (req, res, next) => {
-  res.render('error.pug', { path: '' });
+  res.render('error.pug', { path: '', pageTitle: 'Error' });
 };
