@@ -1,0 +1,98 @@
+
+.response-area .media {
+    border: 1px solid #F7F7F0;
+    padding: 18px 18px 18px 0;
+    margin-bottom: 27px;
+}
+
+.sinlge-post-meta {
+    overflow: hidden;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+.sinlge-post-meta li {
+    background: #F0F0E9;
+    color: #363432;
+    float: left;
+    font-size: 10px;
+    font-weight: 700;
+    margin-right: 10px;
+    padding: 0 10px 0 0;
+    position: relative;
+    text-transform: uppercase;
+}
+ul li {
+    list-style: none;
+}
+
+.second-media {
+    margin-left: 5%;
+    width: 95%;
+}
+
+.sinlge-post-meta li i {
+    background: #ff4342;
+    color: #FFFFFF;
+    margin-right: 10px;
+    padding: 8px 10px;
+}
+
+.media-list .btn-primary, .commnets .btn-primary {
+    background: #ff4342;
+    border: 0 none;
+    border-radius: 0;
+    color: #FFFFFF;
+    float: left;
+    font-size: 10px;
+    padding: 1px 7px;
+    text-transform: uppercase;
+}
+
+.media img {
+    height: auto;
+    width: 86px;
+    margin-left: 10px;
+}
+
+.media {
+    border: 1px solid #F7F7F0;
+    padding: 18px 18px 18px 0;
+    margin-bottom: 27px;
+}
+
+.reply-box {
+
+}
+
+
+/* XS Portrait */
+@media (max-width: 480px) {
+
+    .media-list .pull-left{
+        float: none !important;
+    }
+
+    .blog-post-area .single-blog-post h3{
+        font-size: 14px;
+    }
+
+    .media p, .replay-box p {
+        font-size: 14px;
+    }
+
+    .blog-post-area .post-meta ul li{
+        margin-right: 7px;
+    }
+
+    .commnets{
+        padding: 0;
+    }
+
+    .response-area .media img{
+        width: auto;
+    }
+
+    .sinlge-post-meta li{
+        margin-bottom: 10px;
+    }
+}
