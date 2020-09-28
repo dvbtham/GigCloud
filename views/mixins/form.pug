@@ -3,3 +3,6 @@ mixin inline-input(args)
     label.col-sm-2.col-form-label.text-md-right #{args.label}
     .col-md-10
       input.form-control(id=args.id name=args.name type=args.type || "text" value=args.value required=args.required)
+      if args.errors && args.errors.has(args.name)
+        span.invalid-feedback
+          strong #{args.errors.get(args.name)}
