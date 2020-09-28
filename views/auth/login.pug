@@ -1,0 +1,16 @@
+extends ../layouts/app.pug
+include ../mixins/form.pug
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8.col-md-offset-2
+        .panel.panel-default
+          .panel-heading Login
+          .panel-body
+            form(method="POST" action="/login")
+              +inline-input({ name: 'email', label: 'Email', type: "email", required: true })
+              +inline-input({ name: 'password', label: 'Password', type: "password", required: true })
+              .form-group.row
+                .col-md-12
+                  button.btn.btn-primary.pull-right(type='submit') Submit
+

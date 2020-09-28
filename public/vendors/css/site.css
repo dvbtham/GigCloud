@@ -1,0 +1,365 @@
+﻿body {
+  padding-top: 90px;
+  padding-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+}
+
+.invalid-feedback {
+  margin-top: 7px;
+  font-size: 14px;
+  color: #d63c3c;
+  display: block;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
+*/
+.dl-horizontal dt {
+  white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/* input,
+select,
+textarea {
+    max-width: 280px;
+} */
+
+.voffset2 {
+  margin-top: 2px;
+}
+
+.voffset5 {
+  margin-top: 5px;
+}
+
+.voffset10 {
+  margin-top: 10px;
+}
+
+.voffset20 {
+  margin-top: 20px;
+}
+
+.voffset40 {
+  margin-top: 40px;
+}
+
+.voffset80 {
+  margin-top: 80px;
+}
+
+.mb-0 {
+  margin-bottom: 0px !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.no-radius {
+  border-radius: 0px !important;
+}
+
+/* Bootstrap overrides */
+.active>a {
+  background-color: #d04646 !important;
+}
+
+.navbar-inverse,
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: #8d8686;
+  border: none;
+  background-color: #ff4342;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.navbar-inverse .notifications {
+  position: relative;
+}
+
+.navbar-inverse .notifications .badge {
+  position: absolute;
+  top: 8px;
+  right: -1px;
+  background: #a80808;
+}
+
+.popover-notifications,
+popover-content {
+  padding: 0px;
+}
+
+.popover {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+.popover-notifications .popover-title {
+  font-weight: bold;
+}
+
+.popover-notifications ul.notifications-box {
+  list-style: none;
+  font-size: 15px;
+  padding-left: 0px;
+}
+
+.popover-notifications ul.notifications-box > li {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0px;
+}
+
+.popover-notifications ul.notifications-box > li:last-child {
+  border-bottom: none;
+}
+
+.popover-notifications ul.notifications-box > li:first-child {
+  padding-top: 0px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: #e41414;
+}
+
+.navbar-inverse .navbar-toggle {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.form-control {
+  font-size: 17px;
+  border-radius: 0;
+  height: 40px;
+  -ms-border-radius: 0;
+}
+
+.form-control:focus {
+  border-color: #ff4342;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.btn {
+  padding: 6px 20px;
+  font-size: 16px;
+  border-radius: 0;
+}
+
+.btn-sm {
+  padding: 3px 6px;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: #e41414;
+}
+
+.dropdown-menu {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a {
+  color: black;
+  padding: 10px 20px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #e41414;
+  color: white;
+}
+
+.field-validation-error {
+  color: red;
+}
+
+/* Page-level styles */
+.gigs {
+  list-style: none;
+  padding-left: 0;
+}
+
+.gigs > li {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.gigs > li .date {
+  background-color: red;
+  color: white;
+  text-align: center;
+  width: 60px;
+  border-radius: 8px;
+  -ms-border-radius: 8px;
+}
+
+.gigs > li .month {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 6px;
+}
+
+.gigs > li .time {
+  font-size: 13px;
+  color: #000;
+  padding: 5px 0;
+  background-color: #ebe6e6;
+}
+
+.gigs > li .day {
+  background-color: #f7f7f7;
+  color: #333;
+  font-size: 25px;
+  padding: 10px 12px;
+}
+
+.gigs > li .details {
+  position: absolute;
+  top: 0px;
+  left: 70px;
+}
+
+.gigs > li .details .artist {
+  font-weight: bold;
+  display: block;
+}
+
+.gigs > li .details .genre {
+  font-size: 15px;
+  display: inline;
+}
+
+.gigs > li .details .actions {
+  padding-top: 5px;
+}
+
+.gigs > li .details .actions-link {
+  padding-top: 5px;
+  display: none;
+}
+
+.gigs > li .details:hover > .actions-link {
+  padding-top: 5px;
+  display: block;
+}
+
+.gigs > li .details .actions-link a {
+  font-size: 15px;
+  text-decoration: none;
+  padding-right: 5px;
+}
+
+.gigs > li .details .actions-link a:hover {
+  color: #ff4342;
+}
+
+.fs-10 {
+  font-size: 10px !important;
+}
+.fs-13 {
+  font-size: 13px !important;
+}
+.fs-15 {
+  font-size: 15px !important;
+}
+.fs-20 {
+  font-size: 20px !important;
+}
+dd {
+  margin-bottom: 10px;
+}
+.alert {
+  border-radius: 0px;
+}
+.parsley-errors-list.filled {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  padding: 15px;
+}
+
+.gig-line {
+  width: 220px;
+  margin-top: 10px;
+  border-bottom: 1px solid #ebe6e6;
+}
+
+.gig-line:last-child {
+  border-bottom: none;
+}
+
+.followings {
+  list-style: none;
+  width: 100%;
+}
+
+.followings li {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.followers {
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  background: red;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+}
+
+.followers > span {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 10px;
+}
+
+.followee-details {
+  width: 200px;
+  position: absolute;
+  left: 80px;
+  top: 0px;
+  right: 10px;
+}
+.highlight {
+  font-weight: bold;
+}
+/* Media Queries */
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+}

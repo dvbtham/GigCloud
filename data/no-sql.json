@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "_id": "1234124151",
+      "name": "Tham Davies",
+      "email": "thamdavies@gmail.com",
+      "password": "jsdjhfskf45345.674574,43.46",
+      "created_at": "",
+      "avatar": ""
+    }
+  ],
+  "genres": [{ "title": "Pop" }],
+  "gigs": [
+    {
+      "venue": "",
+      "date": "",
+      "artist": "",
+      "genre": "",
+      "description": "",
+      "is_canceled": false,
+      "created_at": ""
+    }
+  ],
+  "attendences": [
+    {
+      "gig_id": "",
+      "attendee_id": "",
+      "is_canceled": false
+    }
+  ],
+  "followings": [
+    {
+      "follower_id": "",
+      "followee_id": "",
+      "is_receive_notification": true
+    }
+  ]
+}
