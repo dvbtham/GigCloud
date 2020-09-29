@@ -1,21 +1,12 @@
 ﻿$(document).ready(function () {
-  //   const inputDate = $('.datetimepicker');
-  //   const summernote = $('.summernote');
+  const inputDate = $('.datetimepicker');
 
-  //   if (inputDate) {
-  //     inputDate.datetimepicker({ format: 'DD/MM/YYYY HH:MM' });
-  //     inputDate.on('keydown', () => {
-  //       return false;
-  //     });
-  //   }
-
-  //   if (summernote) summernote.summernote();
-
-  $('#logoff').on('click', function () {
-    document.getElementById('logoutForm').submit();
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
-  });
+  if (inputDate) {
+    inputDate.datetimepicker({ format: 'MM/DD/YYYY HH:mm' });
+    inputDate.on('keydown', () => {
+      return false;
+    });
+  }
 
   // $.getJSON("/api/notifications", function (notifications) {
   //     $(".js-notifications-count")

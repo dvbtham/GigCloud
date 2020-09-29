@@ -78,15 +78,20 @@ textarea {
   color: #333;
 }
 
-/* Bootstrap overrides */
 .active>a {
   background-color: #e41414 !important;
+}
+
+.required {
+  color: #e41414;
+  font-size: 13px;
 }
 
 .pointer {
   cursor: pointer;
 }
 
+/* Bootstrap overrides */
 .navbar-inverse,
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
@@ -367,9 +372,16 @@ dd {
 .highlight {
   font-weight: bold;
 }
+
 /* Media Queries */
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar>.container .navbar-brand {
+    margin-left: unset;
   }
 }

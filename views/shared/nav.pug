@@ -9,8 +9,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top
     .navbar-collapse.collapse
       if isAuthenticated
         ul.nav.navbar-nav
-          li
-            a.navbar-brand(href="/gigs/create") Add a gig
+          li(class=path === "/add-a-gig" ? "active" : "")
+            a.navbar-brand(href="/add-a-gig") Add a gig
       ul.nav.navbar-nav.navbar-right
         if isAuthenticated
           li.notifications
