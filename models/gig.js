@@ -12,26 +12,29 @@ const gigSchema = new Schema({
     required: true,
     maxlength: 256,
   },
+  date: {
+    type: Date,
+    required: true,
+  },
   artist: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User',
   },
-  genres: [
-    {
-      genre: Schema.Types.ObjectId,
-      ref: 'Genre',
-    },
-  ],
+  genre: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Genre',
+  },
   description: {
     type: String,
-    minlength: 6,
+    maxlength: 1800,
   },
-  is_canceled: {
+  isCanceled: {
     type: Boolean,
     default: false,
   },
-  created_at: Date,
+  createdAt: Date,
 });
 
 module.exports = mongoose.model('Gig', gigSchema);

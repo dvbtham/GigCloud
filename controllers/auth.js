@@ -32,6 +32,7 @@ module.exports.postLogin = (req, res, next) => {
           if (!doMatch) return res.render('auth/login.pug', new RegisterPresenter(errorResult, email));
           req.session.isAuthenticated = true;
           req.session.user = {
+            _id: user._id,
             email: email,
             name: user.name,
           };
@@ -71,7 +72,7 @@ module.exports.postRegister = (req, res, next) => {
         email: email,
         avatar: avatar,
         password: hashedPassword,
-        created_at: Date.now(),
+        createdAt: Date.now(),
       });
       return user.save();
     })

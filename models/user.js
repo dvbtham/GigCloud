@@ -20,7 +20,7 @@ const userSchema = new Schema({
     minlength: 6,
     maxlength: 256,
   },
-  created_at: Date,
+  createdAt: Date,
   avatar: String,
 });
 

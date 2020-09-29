@@ -1,0 +1,16 @@
+include ../mixins/form.pug
+
+form(method="POST" action="/add-a-gig" noValidate)
+  include ../shared/csrf-input.pug
+  include ../shared/form-errors.pug
+  +inline-input({ name: 'title', label: 'Title', type: 'text', errors: errors, value: gig.title, required: true })
+  +inline-input({ name: 'venue', label: 'Venue', type: 'text', errors: errors, value: gig.venue, required: true })
+  +inline-input({ name: 'date', label: 'Date', type: 'text', errors: errors, value: gig.date, class: 'datetimepicker',
+    required: true })
+  +inline-select({ name: 'genre', label: 'Genre', selected: gig.genre,
+    source: genres.map(g => ({_id: g._id, label: g.title})), errors: errors, required: true })
+  +inline-textarea({ name: 'description', label: 'Description', errors: errors, value: gig.description, value: '' })
+  .form-group.row
+    .col-md-12
+      button.btn.btn-primary.pull-right(type='submit') Submit
+

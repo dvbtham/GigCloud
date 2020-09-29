@@ -1,8 +1,34 @@
 mixin inline-input(args)
   .form-group.row
     label.col-sm-2.col-form-label.text-md-right #{args.label}
+      if args.required
+        small.text-danger.required  (*)
     .col-md-10
-      input.form-control(id=args.id name=args.name type=args.type || "text" value=args.value required=args.required)
+      input(class=`form-control ${args.class}` id=args.id name=args.name type=args.type || "text" value=args.value required=args.required)
+      if args.errors && args.errors.has(args.name)
+        span.invalid-feedback
+          strong #{args.errors.get(args.name)}
+
+mixin inline-textarea(args)
+  .form-group.row
+    label.col-sm-2.col-form-label.text-md-right #{args.label}
+      if args.required
+        small.text-danger.required  (*)
+    .col-md-10
+      textarea.form-control(id=args.id name=args.name required=args.required) #{args.value}
+      if args.errors && args.errors.has(args.name)
+        span.invalid-feedback
+          strong #{args.errors.get(args.name)}
+
+mixin inline-select(args)
+  .form-group.row
+    label.col-sm-2.col-form-label.text-md-right #{args.label}
+      if args.required
+        small.text-danger.required  (*)
+    .col-md-10
+      select.form-control(name=args.name)
+        each item in args.source
+          option(value=item._id selected=args.selected === item._id.toString()) #{item.label}
       if args.errors && args.errors.has(args.name)
         span.invalid-feedback
           strong #{args.errors.get(args.name)}
