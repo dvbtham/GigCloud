@@ -2,7 +2,6 @@ const { validationResult } = require('express-validator');
 const ErrorPresenter = require('../presenters/error');
 const Gig = require('../models/gig');
 const UserGigPresenter = require('../presenters/user/gig');
-const ObjectId = require('../util/objectId');
 
 module.exports.getAddGig = async (req, res, next) => {
   const presenter = new UserGigPresenter({}, 'Add a gig', '/add-a-gig', new ErrorPresenter([]));

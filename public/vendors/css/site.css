@@ -217,7 +217,7 @@ popover-content {
 }
 
 .field-validation-error {
-  color: red;
+  color: #e41414;
 }
 
 /* Page-level styles */
@@ -232,7 +232,7 @@ popover-content {
 }
 
 .gigs > li .date {
-  background-color: red;
+  background-color: #e41414;
   color: white;
   text-align: center;
   width: 60px;
@@ -256,6 +256,7 @@ popover-content {
 
 .gigs > li .day {
   background-color: #f7f7f7;
+  border: #ebe6e6 2px solid;
   color: #333;
   font-size: 25px;
   padding: 10px 12px;
@@ -267,9 +268,19 @@ popover-content {
   left: 70px;
 }
 
-.gigs > li .details .artist {
-  font-weight: bold;
+.gigs > li .details .title {
   display: block;
+  font-size: 15px;
+}
+
+.gigs > li .details .title a {
+  font-weight: bold;
+  color: black;
+}
+
+.gigs > li .details .artist {
+  display: block;
+  font-size: 15px;
 }
 
 .gigs > li .details .genre {
@@ -278,7 +289,7 @@ popover-content {
 }
 
 .gigs > li .details .actions {
-  padding-top: 5px;
+  padding-top: 16px;
 }
 
 .gigs > li .details .actions-link {
@@ -295,6 +306,10 @@ popover-content {
   font-size: 15px;
   text-decoration: none;
   padding-right: 5px;
+}
+
+.form-inline {
+  display: inline-block;
 }
 
 .gigs > li .details .actions-link a:hover {
@@ -324,6 +339,10 @@ dd {
   background-color: #f2dede;
   border-color: #eed3d7;
   padding: 15px;
+}
+
+.search-box .input-group {
+  width: 100%;
 }
 
 .gig-line {

@@ -12,7 +12,7 @@ const attendanceSchema = new Schema({
     required: true,
     ref: 'User',
   },
-  is_canceled: {
+  isCanceled: {
     type: Boolean,
     default: false,
   },
