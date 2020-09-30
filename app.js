@@ -1,12 +1,14 @@
 const path = require('path');
 const express = require('express');
+const moment = require('moment');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDbStore = require('connect-mongodb-session')(session);
 const app = express();
-const { getNotFoundPage } = require('./controllers/error');
+const errorsController = require('./controllers/error');
 const authRoutes = require('./routes/auth');
+const flash = require('./middlewares/flash');
 const gigRoutes = require('./routes/gig');
 const csrf = require('csurf');
 
@@ -33,16 +35,18 @@ app.use(
     },
   }),
 );
+app.use(flash);
 app.use(csrfProtection);
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isAuthenticated;
   res.locals.currentUser = req.session.user;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.moment = moment;
   next();
 });
 app.use(authRoutes);
 app.use(gigRoutes);
-app.use(getNotFoundPage);
+app.use(errorsController.get404);
 
 mongoose
   .connect(MONGODB_URI)

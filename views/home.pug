@@ -1,0 +1,40 @@
+extends layouts/app.pug
+
+block content
+  main.container
+    include ./shared/flash.pug
+    <h2>Upcoming Gigs</h2>
+    div.search-box
+      form(action="/" method="GET")
+        .input-group
+          input.form-control.no-radius(type="text", name="q", placeholder="Enter gig title, artist name or genre", value=q)
+    .row
+      each gig in gigs
+        .col-md-4.col-sm-6
+          ul.gigs.voffset40
+            li.gig-item
+              .date(title=moment(gig.date).format("YYYY-MM-DD HH:mm"))
+                .month #{moment(gig.date).format('MMM')}
+                .day #{moment(gig.date).format('DD')}
+                .time #{moment(gig.date).format('HH:mm')}
+              .details
+                .title
+                  a(href="") #{gig.title}
+                .artist
+                  i.glyphicon.glyphicon-user
+                  span  #{gig.artist.name}
+                .genre
+                  i.glyphicon.glyphicon-music
+                  span  #{gig.genre.title}
+                .actions
+                  form(action="/follow-gig" method="post" class="form-inline")
+                    include ./shared/csrf-input.pug
+                    input(type="hidden", name="artist" value=gig.artist._id)
+                    button(type="submit" class=`btn ${gig.isFollowing ? 'btn-info' : 'btn-default'} btn-sm`)
+                      span #{gig.isFollowing ? "Following" : "Follow"}
+                  form(action="/going-a-gig" method="post" class="form-inline")
+                    include ./shared/csrf-input.pug
+                    input(type="hidden", name="gigId" value=gig._id)
+                    button(type="submit" class=`btn ${gig.isGoing ? 'btn-info' : 'btn-default'} btn-sm`)
+                      span #{gig.isGoing ? "Not Going?" : "Going?"}
+

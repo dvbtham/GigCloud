@@ -1,3 +1,3 @@
-module.exports.getNotFoundPage = (req, res, next) => {
-  res.render('error.pug', { path: '', pageTitle: 'Error' });
+exports.get404 = (req, res, next) => {
+  res.status(404).render('404', { pageTitle: 'Page Not Found', path: '/404' });
 };
