@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const moment = require('moment');
@@ -9,15 +10,17 @@ const app = express();
 const errorsController = require('./controllers/error');
 const authRoutes = require('./routes/auth');
 const flash = require('./middlewares/flash');
-const gigRoutes = require('./routes/gig');
+const clientRoutes = require('./routes/client');
 const csrf = require('csurf');
 const UserSession = require('./models/userSession');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/gigcloud';
+
 const store = new MongoDbStore({
   uri: MONGODB_URI,
   collection: 'sessions',
 });
+
 const csrfProtection = csrf();
 
 app.set('view engine', 'pug');
@@ -27,27 +30,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   session({
-    secret: 'wC7Gs48FACZc48gZLSnsjxNDREmIvYB7',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: store,
     cookie: {
       maxAge: 1 * (24 * 60 * 60 * 1000),
     },
-  }),
+  })
 );
 app.use(flash);
 app.use(csrfProtection);
 app.use((req, res, next) => {
   const { isAuthenticated } = req.session;
   res.locals.isAuthenticated = isAuthenticated;
-  res.locals.currentUser = isAuthenticated ? new UserSession(req.session.user) : undefined;
+  res.locals.currentUser = isAuthenticated
+    ? new UserSession(req.session.user)
+    : undefined;
   res.locals.csrfToken = req.csrfToken();
   res.locals.moment = moment;
   next();
 });
 app.use(authRoutes);
-app.use(gigRoutes);
+app.use(clientRoutes);
 app.use(errorsController.get404);
 
 mongoose

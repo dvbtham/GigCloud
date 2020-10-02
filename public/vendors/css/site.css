@@ -1,8 +1,8 @@
 ﻿body {
-  padding-top: 90px;
+  padding-top: 80px;
   padding-bottom: 20px;
   font-family: 'Roboto', sans-serif;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .invalid-feedback {
@@ -31,6 +31,10 @@ select,
 textarea {
     max-width: 280px;
 } */
+
+.hidden {
+  display: none;
+}
 
 .voffset2 {
   margin-top: 2px;
@@ -340,14 +344,9 @@ popover-content {
 dd {
   margin-bottom: 10px;
 }
+
 .alert {
   border-radius: 0px;
-}
-.parsley-errors-list.filled {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
-  padding: 15px;
 }
 
 .search-box .input-group {

@@ -1,0 +1,14 @@
+each comment in comments
+  .comment-list.voffset20
+    .avatar
+      a.pull-left
+        img(src=comment.by.avatar)
+    .content
+      a(href="#") #{comment.by.name}
+      figure(id=`_comment_${comment._id}` data-content=comment.body) #{comment.body}
+  .comment-actions
+    a(href="#") Like
+    span &middot;
+    a(href="#") Reply
+    span &middot;
+    span #{moment(comment.createdAt).fromNow()}

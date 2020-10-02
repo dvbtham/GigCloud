@@ -7,7 +7,10 @@ module.exports = class AttendGigService {
   }
 
   async perform() {
-    const attendance = await Attendance.findOne({ gig: this.gig._id, attendee: this.attendee._id }).exec();
+    const attendance = await Attendance.findOne({
+      gig: this.gig._id,
+      attendee: this.attendee._id,
+    }).exec();
 
     if (!attendance) {
       const result = await Attendance.create({
@@ -20,26 +23,30 @@ module.exports = class AttendGigService {
           type: 'success',
           message: `You're going to a gig ${this.gig.title}`,
         };
-      } else {
-        return {
-          type: 'error',
-          message: `Error occurs while going to a gig ${this.gig.title}`,
-        };
       }
+
+      return {
+        type: 'error',
+        message: `Error occurs while going to a gig ${this.gig.title}`,
+      };
     }
 
-    const going = await Attendance.updateOne({ _id: attendance._id }, { $set: { isCanceled: !attendance.isCanceled } });
+    const going = await Attendance.findOneAndUpdate(
+      { _id: attendance._id },
+      { isCanceled: !attendance.isCanceled },
+      { new: true }
+    );
 
     if (going.isCanceled) {
       return {
         type: 'success',
         message: `You're not going to a gig ${this.gig.title}`,
       };
-    } else {
-      return {
-        type: 'success',
-        message: `You're going to a gig ${this.gig.title}`,
-      };
     }
+
+    return {
+      type: 'success',
+      message: `You're going to a gig ${this.gig.title}`,
+    };
   }
 };
