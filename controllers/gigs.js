@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const ErrorPresenter = require('../presenters/error');
 const Gig = require('../models/gig');
 const UserGigPresenter = require('../presenters/user/gig');
+const GigPresenter = require('../presenters/home/gig');
 
 module.exports.getAddGig = async (req, res, next) => {
   const presenter = new UserGigPresenter({}, 'Add a gig', '/add-a-gig', new ErrorPresenter([]));
@@ -33,4 +34,20 @@ module.exports.postAddGig = async (req, res, next) => {
       res.redirect('/');
     })
     .catch((err) => console.log(err));
+};
+
+module.exports.getGigDetail = async (req, res, next) => {
+  const { slug } = req.params;
+  const gig = await Gig.findOne({ slug: slug }).populate('artist').populate('genre').exec();
+  if (!gig) {
+    req.session.flash = {
+      type: 'error',
+      message: `Gig can't be found`,
+    };
+    return res.redirect('/');
+  }
+  const isFollowing = await gig.isFollowing(req.session.user._id);
+  const isGoing = await gig.isGoing(req.session.user._id);
+  const presenter = new GigPresenter(gig, isFollowing, isGoing);
+  res.render('gigs/show.pug', { pageTitle: presenter.title, gig: { ...presenter } });
 };

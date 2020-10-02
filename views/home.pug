@@ -19,7 +19,7 @@ block content
                 .time #{moment(gig.date).format('HH:mm')}
               .details
                 .title
-                  a(href="") #{gig.title}
+                  a(href=`/gigs/${gig.slug}`) #{gig.title}
                 .artist
                   i.glyphicon.glyphicon-user
                   span  #{gig.artist.name}
@@ -27,14 +27,5 @@ block content
                   i.glyphicon.glyphicon-music
                   span  #{gig.genre.title}
                 .actions
-                  form(action="/follow-gig" method="post" class="form-inline")
-                    include ./shared/csrf-input.pug
-                    input(type="hidden", name="artist" value=gig.artist._id)
-                    button(type="submit" class=`btn ${gig.isFollowing ? 'btn-info' : 'btn-default'} btn-sm`)
-                      span #{gig.isFollowing ? "Following" : "Follow"}
-                  form(action="/going-a-gig" method="post" class="form-inline")
-                    include ./shared/csrf-input.pug
-                    input(type="hidden", name="gigId" value=gig._id)
-                    button(type="submit" class=`btn ${gig.isGoing ? 'btn-info' : 'btn-default'} btn-sm`)
-                      span #{gig.isGoing ? "Not Going?" : "Going?"}
+                  include ./shared/gig/actions.pug
 

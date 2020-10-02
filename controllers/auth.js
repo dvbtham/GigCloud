@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const ErrorPresenter = require('../presenters/error');
 const RegisterPresenter = require('../presenters/register');
 const LoginPresenter = require('../presenters/login');
+const UserSession = require('../models/userSession');
 
 module.exports.getLogin = (req, res, next) => {
   res.render('auth/login.pug', new LoginPresenter(new ErrorPresenter([])), '');
@@ -31,11 +32,7 @@ module.exports.postLogin = (req, res, next) => {
         .then((doMatch) => {
           if (!doMatch) return res.render('auth/login.pug', new RegisterPresenter(errorResult, email));
           req.session.isAuthenticated = true;
-          req.session.user = {
-            _id: user._id,
-            email: email,
-            name: user.name,
-          };
+          req.session.user = new UserSession(user);
           res.redirect('/');
         })
         .then((err) => console.log(err));

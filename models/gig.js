@@ -3,13 +3,20 @@ const Genre = require('../models/genre');
 const Attendance = require('../models/attendance');
 const User = require('../models/user');
 const Following = require('../models/following');
+const slug = require('mongoose-slug-generator');
 const Schema = mongoose.Schema;
+
+mongoose.plugin(slug);
 
 const gigSchema = new Schema({
   title: {
     type: String,
     required: true,
     maxlength: 256,
+  },
+  slug: {
+    type: String,
+    slug: 'title',
   },
   venue: {
     type: String,
@@ -63,14 +70,14 @@ gigSchema.statics.upcommingGigs = async function (term) {
   return await searchedGigs;
 };
 
-gigSchema.methods.isFollowing = async function (followerId, followeeId) {
-  const following = await Following.findOne({ follower: followerId, followee: followeeId }).exec();
+gigSchema.methods.isFollowing = async function (followerId) {
+  const following = await Following.findOne({ follower: followerId, followee: this.artist._id }).exec();
   return following !== null;
 };
 
-gigSchema.methods.isGoing = async function (gigId, attendeeId) {
+gigSchema.methods.isGoing = async function (attendeeId) {
   const attendance = await Attendance.findOne({
-    gig: gigId,
+    gig: this._id,
     attendee: attendeeId,
     isCanceled: false,
   }).exec();

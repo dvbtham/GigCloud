@@ -220,7 +220,16 @@ popover-content {
   color: #e41414;
 }
 
+.panel dl {
+  margin: 0;
+}
+
+.flat {
+  border-radius: 0 !important;
+}
+
 /* Page-level styles */
+
 .gigs {
   list-style: none;
   padding-left: 0;

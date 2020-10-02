@@ -1,6 +1,5 @@
 const Gig = require('../models/gig');
 const User = require('../models/user');
-const Following = require('../models/following');
 const GigPresenter = require('../presenters/home/gig');
 const FollowingService = require('../services/gig/following');
 const AttendGigService = require('../services/gig/attendGig');
@@ -8,14 +7,14 @@ const AttendGigService = require('../services/gig/attendGig');
 async function handlePresenter(req) {
   const upcommingGigs = await Gig.upcommingGigs(req.query.q);
   return upcommingGigs.map(async (gig) => {
-    const followerId = req.session.isAuthenticated ? req.session.user._id : undefined;
-    const isFollowing = await gig.isFollowing(followerId, gig.artist);
-    const isGoing = await gig.isGoing(gig._id, followerId);
+    const userId = req.session.isAuthenticated ? req.session.user._id : undefined;
+    const isFollowing = await gig.isFollowing(userId);
+    const isGoing = await gig.isGoing(userId);
     return new GigPresenter(gig, isFollowing, isGoing);
   });
 }
 
-module.exports.getUpcommingGigs = async (req, res, next) => {
+module.exports.getUpcommingGigs = async (req, res) => {
   const pageTitle = 'Publish your gigs to the world';
   handlePresenter(req)
     .then((gigs) => Promise.all(gigs))
@@ -39,7 +38,7 @@ module.exports.getUpcommingGigs = async (req, res, next) => {
     });
 };
 
-module.exports.postFollowGig = async (req, res, next) => {
+module.exports.postFollowGig = async (req, res) => {
   try {
     const artistId = req.body.artist;
     const artist = await User.findById(artistId).exec();
@@ -49,23 +48,31 @@ module.exports.postFollowGig = async (req, res, next) => {
         type: 'error',
         message: 'The artist is not available',
       };
-      return res.redirect('/');
+      return res.redirect(req.get('referer'));
+    }
+
+    if (artist.isCurrentUser(req.session.user._id)) {
+      req.session.flash = {
+        type: 'error',
+        message: "Can't follow your own",
+      };
+      return res.redirect(req.get('referer'));
     }
 
     const following = await new FollowingService(artist, req.session.user).perform();
 
     req.session.flash = following;
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   } catch (error) {
     req.session.flash = {
       type: 'error',
       message: 'Request is invalid',
     };
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   }
 };
 
-module.exports.postGoingGig = async (req, res, next) => {
+module.exports.postGoingGig = async (req, res) => {
   try {
     const gigId = req.body.gigId;
     const gig = await Gig.findById(gigId).exec();
@@ -75,18 +82,18 @@ module.exports.postGoingGig = async (req, res, next) => {
         type: 'error',
         message: 'The gig is not available',
       };
-      return res.redirect('/');
+      return res.redirect(req.get('referer'));
     }
 
     const going = await new AttendGigService(gig, req.session.user).perform();
     req.session.flash = going;
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   } catch (error) {
     console.log(error);
     req.session.flash = {
       type: 'error',
       message: 'Request is invalid',
     };
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   }
 };

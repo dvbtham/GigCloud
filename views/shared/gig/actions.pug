@@ -1,0 +1,12 @@
+if currentUser
+  if !currentUser.isCurrentUser(gig.artist._id)
+    form(action="/follow-gig" method="post" class="form-inline")
+      include ../csrf-input.pug
+      input(type="hidden", name="artist" value=gig.artist._id)
+      button(type="submit" class=`btn ${gig.isFollowing ? 'btn-info' : 'btn-default'} btn-sm`)
+        span #{gig.isFollowing ? "Following" : "Follow"}
+  form(action="/going-a-gig" method="post" class="form-inline")
+    include ../csrf-input.pug
+    input(type="hidden", name="gigId" value=gig._id)
+    button(type="submit" class=`btn ${gig.isGoing ? 'btn-info' : 'btn-default'} btn-sm`)
+      span #{gig.isGoing ? "Not Going?" : "Going?"}
