@@ -18,12 +18,12 @@ module.exports = class AttendGigService {
       if (result) {
         return {
           type: 'success',
-          message: `You're going to this gig ${this.gig.title}`,
+          message: `You're going to a gig ${this.gig.title}`,
         };
       } else {
         return {
           type: 'error',
-          message: `Error occurs while going to ${this.gig.title}`,
+          message: `Error occurs while going to a gig ${this.gig.title}`,
         };
       }
     }
@@ -33,12 +33,12 @@ module.exports = class AttendGigService {
     if (going.isCanceled) {
       return {
         type: 'success',
-        message: `You're not going to this gig ${this.gig.title}`,
+        message: `You're not going to a gig ${this.gig.title}`,
       };
     } else {
       return {
         type: 'success',
-        message: `You're going to this gig ${this.gig.title}`,
+        message: `You're going to a gig ${this.gig.title}`,
       };
     }
   }

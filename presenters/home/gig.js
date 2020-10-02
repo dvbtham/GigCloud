@@ -6,6 +6,8 @@ module.exports = class GigPresenter {
     this.artist = gig.artist;
     this.date = gig.date;
     this.genre = gig.genre;
+    this.slug = gig.slug;
+    this.description = gig.description;
     this.isFollowing = isFollowing;
     this.isGoing = isGoing;
   }

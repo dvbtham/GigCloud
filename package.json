@@ -31,6 +31,7 @@
     "moment": "^2.29.0",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.7",
+    "mongoose-slug-generator": "^1.0.4",
     "pug": "^3.0.0"
   }
 }

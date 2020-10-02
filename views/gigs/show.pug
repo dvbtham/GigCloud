@@ -1,0 +1,39 @@
+extends ../layouts/app.pug
+block content
+  .container
+    .row
+      .col-md-12
+        .panel.panel-default.flat
+          .panel-heading #{gig.title}
+          .panel-body
+            dl
+              dt Artist
+              dd
+                i.fs-15.glyphicon.glyphicon-user.text-info
+                span &nbsp; #{gig.artist.name}
+
+              dt Venue
+              dd
+                i.fs-15.glyphicon.glyphicon-road.text-info
+                span &nbsp; #{gig.venue}
+
+              dt Genre
+              dd
+                i.fs-15.glyphicon.glyphicon-music.text-info
+                span &nbsp; #{gig.genre.title}
+
+              dt Date
+              dd
+                i.fs-15.glyphicon.glyphicon-calendar.text-info
+                span &nbsp; #{moment(gig.date).format("MMM Do YYYY")}
+
+              dt Time
+              dd
+                i.fs-15.glyphicon.glyphicon-time.text-info
+                span &nbsp; #{moment(gig.date).format("HH:mm")}
+
+              dt Description
+              dd  #{gig.description.length === 0 ? "No description for this gig" : gig.description}
+
+              dt Interest about this artist or gig?
+              include ../shared/gig/actions.pug

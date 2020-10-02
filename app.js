@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth');
 const flash = require('./middlewares/flash');
 const gigRoutes = require('./routes/gig');
 const csrf = require('csurf');
+const UserSession = require('./models/userSession');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/gigcloud';
 const store = new MongoDbStore({
@@ -38,8 +39,9 @@ app.use(
 app.use(flash);
 app.use(csrfProtection);
 app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.session.isAuthenticated;
-  res.locals.currentUser = req.session.user;
+  const { isAuthenticated } = req.session;
+  res.locals.isAuthenticated = isAuthenticated;
+  res.locals.currentUser = isAuthenticated ? new UserSession(req.session.user) : undefined;
   res.locals.csrfToken = req.csrfToken();
   res.locals.moment = moment;
   next();
