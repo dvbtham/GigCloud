@@ -1,8 +1,15 @@
 extends ../layouts/app.pug
+
+block styles
+  link(rel="stylesheet", href="/vendors/css/comment.css")
+  link(rel="stylesheet", href="https://cdn.quilljs.com/1.3.6/quill.snow.css")
+  link(rel="stylesheet", href="/vendors/css/quill-emoji.css")
+
 block content
   .container
     .row
       .col-md-12
+        include ../shared/flash
         .panel.panel-default.flat
           .panel-heading #{gig.title}
           .panel-body
@@ -36,4 +43,23 @@ block content
               dd  #{gig.description.length === 0 ? "No description for this gig" : gig.description}
 
               dt Interest about this artist or gig?
-              include ../shared/gig/actions.pug
+              include ../shared/gig/actions
+      .col.md-12
+        .comments-container
+          h3 Comments
+          form(action="/add-comment" method="post" id="form-comment")
+            include ../shared/csrf-input
+            input(type="hidden", name="gigId" value=gig._id)
+            textarea(class="hidden", name="content", id="comment-content")
+            .comment-body
+              #comment-editor
+              input.btn.btn-primary.voffset10.submit-comment(type="button", value="Submit")
+            include ../comments/item
+            //- .comment-replies
+            //-   include ../comments/item
+
+block scripts
+  script(src="https://cdn.quilljs.com/1.3.6/quill.js")
+  script(src="https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js")
+  script(src="/vendors/js/quill-emoji.js")
+  script(src="/js/comment.js")

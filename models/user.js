@@ -21,7 +21,11 @@ const userSchema = new Schema({
     maxlength: 256,
   },
   createdAt: Date,
-  avatar: String,
+  avatar: {
+    type: String,
+    default:
+      'https://static.wikia.nocookie.net/scoutvivor/images/7/76/D_Red.png',
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);
