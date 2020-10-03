@@ -4,6 +4,7 @@ const Gig = require('../models/gig');
 const Comment = require('../models/comment');
 const UserGigPresenter = require('../presenters/user/gig');
 const GigPresenter = require('../presenters/home/gig');
+const authUserId = require('../middlewares/authUserId');
 
 module.exports.getAddGig = async (req, res, next) => {
   const presenter = new UserGigPresenter(
@@ -60,8 +61,11 @@ module.exports.getGigDetail = async (req, res, next) => {
     };
     return res.redirect('/');
   }
-  const isFollowing = await gig.isFollowing(req.session.user._id);
-  const isGoing = await gig.isGoing(req.session.user._id);
+
+  const userId = authUserId(req);
+
+  const isFollowing = await gig.isFollowing(userId);
+  const isGoing = await gig.isGoing(userId);
   const presenter = new GigPresenter(gig, isFollowing, isGoing);
   const comments = await Comment.find({
     modelName: 'Gig',

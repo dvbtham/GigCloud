@@ -3,11 +3,13 @@ const User = require('../models/user');
 const GigPresenter = require('../presenters/home/gig');
 const FollowingService = require('../services/gig/following');
 const AttendGigService = require('../services/gig/attendGig');
+const UserSession = require('../models/userSession');
+const authUserId = require('../middlewares/authUserId');
 
 async function handlePresenter(req) {
   const upcommingGigs = await Gig.upcommingGigs(req.query.q);
   return upcommingGigs.map(async (gig) => {
-    const userId = req.session.isAuthenticated ? req.session.user._id : undefined;
+    const userId = authUserId(req);
     const isFollowing = await gig.isFollowing(userId);
     const isGoing = await gig.isGoing(userId);
     return new GigPresenter(gig, isFollowing, isGoing);
@@ -51,7 +53,9 @@ module.exports.postFollowGig = async (req, res) => {
       return res.redirect(req.get('referer'));
     }
 
-    if (artist.isCurrentUser(req.session.user._id)) {
+    const user = new UserSession(artist);
+
+    if (user.isCurrentUser(req.session.user._id)) {
       req.session.flash = {
         type: 'error',
         message: "Can't follow your own",
@@ -59,7 +63,10 @@ module.exports.postFollowGig = async (req, res) => {
       return res.redirect(req.get('referer'));
     }
 
-    const following = await new FollowingService(artist, req.session.user).perform();
+    const following = await new FollowingService(
+      user,
+      req.session.user
+    ).perform();
 
     req.session.flash = following;
     res.redirect(req.get('referer'));

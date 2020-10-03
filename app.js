@@ -11,6 +11,7 @@ const errorsController = require('./controllers/error');
 const authRoutes = require('./routes/auth');
 const flash = require('./middlewares/flash');
 const clientRoutes = require('./routes/client');
+const apiRoutes = require('./routes/api');
 const csrf = require('csurf');
 const UserSession = require('./models/userSession');
 
@@ -26,6 +27,7 @@ const csrfProtection = csrf();
 app.set('view engine', 'pug');
 app.set('views', 'views');
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -53,6 +55,7 @@ app.use((req, res, next) => {
 });
 app.use(authRoutes);
 app.use(clientRoutes);
+app.use(apiRoutes);
 app.use(errorsController.get404);
 
 mongoose

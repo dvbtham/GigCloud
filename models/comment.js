@@ -19,6 +19,10 @@ const commentSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  childrens: {
+    type: Array,
+    default: [],
+  },
   by: {
     ref: 'User',
     type: mongoose.Types.ObjectId,
