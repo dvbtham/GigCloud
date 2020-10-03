@@ -4,6 +4,7 @@
 
 .comment-list {
   display: flex;
+  position: relative;
 }
 
 .comment-list .avatar img {
@@ -38,6 +39,18 @@
   padding: 3px;
 }
 
-.comment-replies {
+.reply-editor-box, .comment-replies {
 	margin-left: 50px;
+}
+
+.meta-actions {
+  opacity: 0;
+  position: absolute;
+  right: 7px;
+  top: -25px;
+}
+
+.comment-list:hover .meta-actions {
+  opacity: 1;
+  transition: all 0.5s;
 }

@@ -42,8 +42,9 @@ block content
               dt Description
               dd  #{gig.description.length === 0 ? "No description for this gig" : gig.description}
 
-              dt Interest about this artist or gig?
-              include ../shared/gig/actions
+              if isAuthenticated
+                dt Interest about this artist or gig?
+                include ../shared/gig/actions
       .col.md-12
         .comments-container
           h3 Comments
@@ -52,11 +53,12 @@ block content
             input(type="hidden", name="gigId" value=gig._id)
             textarea(class="hidden", name="content", id="comment-content")
             .comment-body
-              #comment-editor
-              input.btn.btn-primary.voffset10.submit-comment(type="button", value="Submit")
+              if isAuthenticated
+                #comment-editor
+                input.btn.btn-primary.voffset10.submit-comment(type="button", value="Submit")
+              else
+                a.btn.btn-primary.voffset10(href="/login") Login to submit comment
             include ../comments/item
-            //- .comment-replies
-            //-   include ../comments/item
 
 block scripts
   script(src="https://cdn.quilljs.com/1.3.6/quill.js")

@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const ErrorPresenter = require('../presenters/error');
+// const ErrorPresenter = require('../presenters/error');
 const Comment = require('../models/comment');
 
 module.exports.postAddComment = async (req, res, next) => {
@@ -19,6 +19,7 @@ module.exports.postAddComment = async (req, res, next) => {
     modelId: gigId,
     modelName: 'Gig',
     by: req.session.user._id,
+    createdAt: new Date(),
   }).then(() => {
     res.redirect(req.get('referer'));
   });

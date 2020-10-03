@@ -1,5 +1,9 @@
 each comment in comments
-  .comment-list.voffset20
+  .comment-list.voffset20(id=comment._id)
+    .comment-actions.meta-actions
+      a(href="#") Edit
+      span &middot;
+      a(href="#") Delete
     .avatar
       a.pull-left
         img(src=comment.by.avatar)
@@ -9,6 +13,30 @@ each comment in comments
   .comment-actions
     a(href="#") Like
     span &middot;
-    a(href="#") Reply
+    a(href="#" class="reply-comment" data-csrf=csrfToken data-comment-id=comment._id data-gig-id=comment.modelId) Reply
     span &middot;
     span #{moment(comment.createdAt).fromNow()}
+  .reply-editor-box(id=`reply-editor-${comment._id}`)
+    div(id=`comment-reply-${comment._id}`)
+  .comment-replies
+    each reply in comment.childrens
+      .comment-list.voffset20(id=reply._id)
+        .comment-actions.meta-actions
+          a(href="#") Edit
+          span &middot;
+          a(href="#") Delete
+        .avatar
+          a.pull-left
+            img(src=reply.author.avatar)
+        .content
+          a(href="#") #{reply.author.name}
+          figure(id=`_comment_${reply._id}` data-content=reply.body) #{reply.body}
+      .comment-actions
+        a(href="#") Like
+        span &middot;
+        a(href="#" class="reply-reply" data-reply-id=reply._id data-csrf=csrfToken data-comment-id=comment._id data-gig-id=reply.modelId) Reply
+        span &middot;
+        span #{moment(reply.createdAt).fromNow()}
+      .reply-editor-box(id=`reply-editor-${reply._id}`)
+        div(id=`reply-reply-${reply._id}`)
+
