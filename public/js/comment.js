@@ -18,6 +18,8 @@ const CommentController = (function () {
     },
   };
 
+  const BACKEND_API = 'http://localhost:3000/api';
+
   const init = function () {
     registerEvents();
   };
@@ -107,12 +109,92 @@ const CommentController = (function () {
           addReply(body);
         });
       });
+
+      $('.edit-comment').on('click', function (e) {
+        e.preventDefault();
+
+        const commentId = $(this).attr('data-comment-id');
+        const gigId = $(this).attr('data-gig-id');
+        const csrf = $(this).attr('data-csrf');
+
+        fetch(`${BACKEND_API}/gigs/${gigId}/comments/${commentId}`, {
+          method: 'GET',
+        })
+          .then((res) => res.json())
+          .then((comment) => {
+            showEditForm(commentId);
+            const quill = createQuill(`.edit-comment-${commentId}`, comment.body);
+            $('.btn-save-edit-comment').on('click', function (e) {
+              e.preventDefault();
+
+              handleSaveComment({ commentId, gigId, csrf, fromReply: false, quill });
+            });
+          });
+      });
+
+      $('.edit-reply').on('click', function (e) {
+        e.preventDefault();
+
+        const commentId = $(this).attr('data-comment-id');
+        const gigId = $(this).attr('data-gig-id');
+        const csrf = $(this).attr('data-csrf');
+
+        fetch(`${BACKEND_API}/gigs/${gigId}/comments/${commentId}?fromReply=true`, {
+          method: 'GET',
+        })
+          .then((res) => res.json())
+          .then((comment) => {
+            showEditForm(commentId);
+            const quill = createQuill(`.edit-comment-${commentId}`, comment.body);
+            $('.btn-save-edit-comment').on('click', function (e) {
+              e.preventDefault();
+              handleSaveComment({ commentId, gigId, csrf, fromReply: true, quill });
+            });
+          });
+      });
     }
     renderQuillContent();
   };
 
+  const showEditForm = function (commentId) {
+    bootbox.dialog({
+      message: `
+        <h4>Edit comment</h4>
+        <div class="edit-comment-${commentId}"></div>
+        <div class="voffset10">
+          <button class="btn btn-primary btn-sm btn-save-edit-comment">Save</button>
+          <button class="btn btn-default bootbox-close-button btn-sm">Cancel</button>
+        </div>
+      `,
+      closeButton: false,
+      onEscape: true,
+    });
+  };
+
+  const handleSaveComment = function (params) {
+    const { commentId, gigId, csrf, fromReply, quill } = params;
+    fetch(`${BACKEND_API}/gigs/${gigId}/comments/${commentId}`, {
+      method: 'PUT',
+      headers: {
+        'X-CSRF-TOKEN': csrf,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        commentId,
+        gigId,
+        content: JSON.stringify(quill.getContents()),
+        fromReply: fromReply,
+      }),
+    })
+      .then((res) => res.json())
+      .then((comment) => {
+        jumpToElAndReload(comment);
+      });
+  };
+
   const addReply = function (body) {
-    fetch(`http://localhost:3000/api/reply`, {
+    fetch(`${BACKEND_API}/reply`, {
       method: 'POST',
       headers: {
         'X-CSRF-TOKEN': body.csrf,
@@ -123,26 +205,33 @@ const CommentController = (function () {
     })
       .then((res) => res.json())
       .then((reply) => {
-        if (reply.errors && reply.errors.length > 0) {
-          toastr.error(reply.errors[0]);
-          return;
-        }
-        let url = window.location.href;
-        let prevUrl = url.split('#');
-
-        if (prevUrl.length > 1) {
-          url = prevUrl[0];
-        }
-
-        url += `#${reply._id}`;
-        window.location.href = url;
-        window.location.reload();
+        jumpToElAndReload(reply);
       });
   };
 
-  const createQuill = function (editorId) {
+  const jumpToElAndReload = function (data) {
+    if (data.errors && data.errors.length > 0) {
+      toastr.error(data.errors[0]);
+      return;
+    }
+    let url = window.location.href;
+    let prevUrl = url.split('#');
+
+    if (prevUrl.length > 1) {
+      url = prevUrl[0];
+    }
+
+    url += `#${data._id}`;
+    window.location.href = url;
+    window.location.reload();
+  };
+
+  const createQuill = function (editorId, data = null) {
     const quill = new Quill(editorId, quillOptions);
     const toolbar = quill.getModule('toolbar');
+    if (data) {
+      quill.setContents(JSON.parse(data));
+    }
     toolbar.addHandler('image', () => imageHandler(quill));
     return quill;
   };
