@@ -1,5 +1,4 @@
 const { validationResult } = require('express-validator');
-// const ErrorPresenter = require('../presenters/error');
 const Comment = require('../models/comment');
 
 module.exports.postAddComment = async (req, res, next) => {
