@@ -5,6 +5,12 @@
   font-size: 14px;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
 .invalid-feedback {
   margin-top: 7px;
   font-size: 14px;
@@ -23,6 +29,15 @@
 */
 .dl-horizontal dt {
   white-space: normal;
+}
+
+.popover-content ul li {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.popover-content ul li:last-child {
+  border-bottom: none;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
