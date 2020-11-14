@@ -1,6 +1,6 @@
 each comment in comments
   .comment-list.voffset20(id=comment._id)
-    if comment.by._id.toString() === currentUser._id.toString()
+    if currentUser && comment.by._id.toString() === currentUser._id.toString()
       .comment-actions.meta-actions
         a(href="#" data-csrf=csrfToken data-comment-id=comment._id data-gig-id=comment.modelId class="edit-comment") Edit
         span &middot;
@@ -23,7 +23,7 @@ each comment in comments
   .comment-replies
     each reply in comment.childrens
       .comment-list.voffset20(id=reply._id)
-        if reply.author._id.toString() === currentUser._id.toString()
+        if currentUser && reply.author._id.toString() === currentUser._id.toString()
           .comment-actions.meta-actions
             a(href="#" data-csrf=csrfToken data-comment-id=reply._id data-gig-id=comment.modelId class="edit-reply") Edit
             span &middot;
