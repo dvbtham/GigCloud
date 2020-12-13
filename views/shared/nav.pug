@@ -13,7 +13,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
             a.navbar-brand(href="/add-a-gig") Add a gig
       ul.nav.navbar-nav.navbar-right
         if isAuthenticated
-          li.notifications
+          li.notifications(id="notifications")
             a(href="#")
               i.glyphicon.glyphicon-globe
               span.badge.js-notifications-count.hide 0

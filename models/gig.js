@@ -62,6 +62,7 @@ gigSchema.statics.upcommingGigs = async function (term) {
   const searchedGigs = gigs.find({
     $or: [
       { title: searchOptions },
+      { venue: searchOptions },
       { description: searchOptions },
       { genre: { $in: genres.map((genre) => genre._id) } },
       { artist: { $in: artists.map((artist) => artist._id) } },
