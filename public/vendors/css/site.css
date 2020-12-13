@@ -51,6 +51,10 @@ textarea {
   display: none;
 }
 
+.hoffset5 {
+  margin-left: 5px;
+}
+
 .voffset2 {
   margin-top: 2px;
 }
@@ -98,11 +102,11 @@ textarea {
 }
 
 .active>a {
-  background-color: #e41414 !important;
+  background-color: #e47215 !important;
 }
 
 .required {
-  color: #e41414;
+  color: #d63c3c;
   font-size: 13px;
 }
 
@@ -116,7 +120,21 @@ textarea {
 .navbar-inverse .navbar-form {
   border-color: #8d8686;
   border: none;
-  background-color: #ff4342;
+  background-color: #f48024;
+}
+
+.btn-primary {
+  background-color: #f48024;
+  border-color: #f48024;
+}
+
+.paginate_button.active a, .paginate_button.active a:hover, .paginate_button.active a:focus {
+  border-color: #f48024;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #e47215;
+  border-color: #e47215;
 }
 
 .navbar-inverse .navbar-brand {
@@ -174,7 +192,7 @@ popover-content {
 
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #e41414;
+  background-color: #f48024;
 }
 
 .navbar-inverse .navbar-toggle {
@@ -190,7 +208,7 @@ popover-content {
 }
 
 .form-control:focus {
-  border-color: #ff4342;
+  border-color: #f48024;
   box-shadow: none;
   -webkit-box-shadow: none;
 }
@@ -210,7 +228,7 @@ popover-content {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #e41414;
+  background-color: #f48024;
 }
 
 .dropdown-menu {
@@ -231,12 +249,12 @@ popover-content {
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  background-color: #e41414;
+  background-color: #f48024;
   color: white;
 }
 
 .field-validation-error {
-  color: #e41414;
+  color: #f48024;
 }
 
 .panel dl {
@@ -260,7 +278,7 @@ popover-content {
 }
 
 .gigs > li .date {
-  background-color: #e41414;
+  background-color: #f48024;
   color: white;
   text-align: center;
   width: 60px;
@@ -341,7 +359,7 @@ popover-content {
 }
 
 .gigs > li .details .actions-link a:hover {
-  color: #ff4342;
+  color: #f48024;
 }
 
 .fs-10 {
@@ -413,6 +431,14 @@ dd {
 }
 .highlight {
   font-weight: bold;
+}
+
+.dataTables_wrapper {
+  width: 100% !important;
+}
+
+.ml-10 {
+  margin-left: 10px;
 }
 
 /* Media Queries */

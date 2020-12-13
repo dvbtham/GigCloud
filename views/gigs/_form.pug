@@ -9,7 +9,7 @@ form(method="POST" action="/add-a-gig" noValidate)
     required: true })
   +inline-select({ name: 'genre', label: 'Genre', selected: gig.genre,
     source: genres.map(g => ({_id: g._id, label: g.title})), errors: errors, required: true })
-  +inline-textarea({ name: 'description', label: 'Description', errors: errors, value: gig.description, value: '' })
+  +inline-textarea({ name: 'description', label: 'Description', errors: errors, value: gig.description })
   .form-group.row
     .col-md-12
       button.btn.btn-primary.pull-right(type='submit') Submit

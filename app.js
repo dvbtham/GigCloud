@@ -39,17 +39,16 @@ app.use(
     cookie: {
       maxAge: 1 * (24 * 60 * 60 * 1000),
     },
-  })
+  }),
 );
 app.use(flash);
 app.use(csrfProtection);
 app.use((req, res, next) => {
   const { isAuthenticated } = req.session;
   res.locals.isAuthenticated = isAuthenticated;
-  res.locals.currentUser = isAuthenticated
-    ? new UserSession(req.session.user)
-    : undefined;
+  res.locals.currentUser = isAuthenticated ? new UserSession(req.session.user) : undefined;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.backendApi = process.env.BACKEND_API;
   res.locals.moment = moment;
   next();
 });

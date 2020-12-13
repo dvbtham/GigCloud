@@ -7,12 +7,7 @@ const GigPresenter = require('../presenters/home/gig');
 const authUserId = require('../middlewares/authUserId');
 
 module.exports.getAddGig = async (req, res, next) => {
-  const presenter = new UserGigPresenter(
-    {},
-    'Add a gig',
-    '/add-a-gig',
-    new ErrorPresenter([])
-  );
+  const presenter = new UserGigPresenter({}, 'Add a gig', '/add-a-gig', new ErrorPresenter([]));
   const genres = await presenter.loadGenres();
   presenter.setGenres(genres);
   res.render('gigs/new.pug', presenter);
@@ -28,14 +23,10 @@ module.exports.postAddGig = async (req, res, next) => {
     artist: req.session.user._id,
     description: description,
     genre: genre,
+    createdAt: new Date(),
   };
   if (!result.isEmpty()) {
-    const presenter = new UserGigPresenter(
-      gig,
-      'Add a gig',
-      '/add-a-gig',
-      new ErrorPresenter(result.array())
-    );
+    const presenter = new UserGigPresenter(gig, 'Add a gig', '/add-a-gig', new ErrorPresenter(result.array()));
     const genres = await presenter.loadGenres();
     presenter.setGenres(genres);
     return res.render('gigs/new.pug', presenter);
@@ -50,10 +41,7 @@ module.exports.postAddGig = async (req, res, next) => {
 
 module.exports.getGigDetail = async (req, res, next) => {
   const { slug } = req.params;
-  const gig = await Gig.findOne({ slug: slug })
-    .populate('artist')
-    .populate('genre')
-    .exec();
+  const gig = await Gig.findOne({ slug: slug, deleted: false }).populate('artist').populate('genre').exec();
   if (!gig) {
     req.session.flash = {
       type: 'error',
