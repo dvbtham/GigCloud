@@ -5,8 +5,7 @@ const User = require('../models/user');
 const Following = require('../models/following');
 const slug = require('mongoose-slug-generator');
 const Schema = mongoose.Schema;
-
-mongoose.plugin(slug);
+const mongooseDelete = require('mongoose-delete');
 
 const gigSchema = new Schema({
   title: {
@@ -48,10 +47,20 @@ const gigSchema = new Schema({
   createdAt: Date,
 });
 
+gigSchema.plugin(slug);
+gigSchema.plugin(mongooseDelete, {
+  indexFields: true,
+});
+
 gigSchema.statics.upcommingGigs = async function (term) {
   const date = new Date();
   date.setHours(date.getHours() - 8);
-  const gigs = this.where('date').gte(date).populate('genre').populate('artist').sort({ date: 'asc' });
+  const gigs = this.find({ deleted: false })
+    .where('date')
+    .gte(date)
+    .populate('genre')
+    .populate('artist')
+    .sort({ date: 'asc' });
 
   if (!term || term === '') return await gigs;
 

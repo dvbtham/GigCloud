@@ -1,0 +1,41 @@
+extends ../../layouts/app.pug
+block scripts
+  script(src="/vendors/js/myGigsTable.js")
+  script(src="/vendors/js/pages/users/gigs.js")
+block content
+  .container
+    .row.justify-content-center
+      .col-md-12
+        .panel.panel-default
+          .panel-heading My gigs
+          .panel-body
+            include ../../shared/flash.pug
+            table#my-gigs-table.display(class="table table-striped table-bordered")
+              thead
+                tr
+                  th Title
+                  th Venue
+                  th Genre
+                  th Date
+                  th Status
+                  th Actions
+              tbody
+                each gig in gigs
+                  tr
+                    td #{gig.title}
+                    td #{gig.venue}
+                    td #{gig.genre.title}
+                    td #{moment(gig.date).format("MMMM Do YYYY, HH:mm")}
+                    td
+                      if gig.deleted
+                        label.label.label-danger Trashed
+                      else
+                        label.label.label-success Activing
+                    td
+                      if gig.deleted
+                        span(class="glyphicon glyphicon-repeat text-info ml-10 pointer change-gig-status" data-id=gig.id data-restore="yes" data-toggle="tooltip" title="Restore")
+                      else
+                        a(href=`/my-gigs/${gig.slug}/edit`)
+                          span(class="glyphicon glyphicon-edit text-success" data-toggle="tooltip" title="Edit")
+                        span(class="glyphicon glyphicon-trash text-danger ml-10 pointer change-gig-status" data-id=gig.id data-toggle="tooltip" title="Move to trash")
+

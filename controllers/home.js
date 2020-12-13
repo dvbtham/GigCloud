@@ -63,10 +63,7 @@ module.exports.postFollowGig = async (req, res) => {
       return res.redirect(req.get('referer'));
     }
 
-    const following = await new FollowingService(
-      user,
-      req.session.user
-    ).perform();
+    const following = await new FollowingService(user, req.session.user).perform();
 
     req.session.flash = following;
     res.redirect(req.get('referer'));
@@ -82,7 +79,7 @@ module.exports.postFollowGig = async (req, res) => {
 module.exports.postGoingGig = async (req, res) => {
   try {
     const gigId = req.body.gigId;
-    const gig = await Gig.findById(gigId).exec();
+    const gig = await Gig.findOne({ _id: gigId, deleted: false }).exec();
 
     if (!gig) {
       req.session.flash = {

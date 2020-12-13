@@ -23,7 +23,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
               li
                 a(href="/profile") My profile
               li
-                a(href="/my-upcoming-gigs") My upcoming gigs
+                a(href="/my-gigs") My gigs
               li
                 a(href="/going-gigs") Gigs I'm Going
               li
@@ -32,7 +32,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top
               li.logout
                 form(action="/logout" method="post")
                   include csrf-input.pug
-                  button.btn.btn-primary.btn-logout.text-left(type='submit') Logout
+                  button.btn.btn-logout.text-left(type='submit') Logout
         else
           li(class=path === "/register" ? "active" : "")
             a(href="/register") Register

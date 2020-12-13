@@ -21,16 +21,16 @@ module.exports.postLogin = (req, res, next) => {
   const { email, password } = req.body;
   if (!result.isEmpty()) {
     const errors = new ErrorPresenter(result.array());
-    return res.render('auth/login.pug', new RegisterPresenter(errors, email));
+    return res.render('auth/login.pug', new LoginPresenter(errors, email));
   }
   User.findOne({ email: email })
     .then((user) => {
       const errorResult = new ErrorPresenter(['Email or Password is incorrect'], 'server');
-      if (!user) return res.render('auth/login.pug', new RegisterPresenter(errorResult, email));
+      if (!user) return res.render('auth/login.pug', new LoginPresenter(errorResult, email));
       bcrypt
         .compare(password, user.password)
         .then((doMatch) => {
-          if (!doMatch) return res.render('auth/login.pug', new RegisterPresenter(errorResult, email));
+          if (!doMatch) return res.render('auth/login.pug', new LoginPresenter(errorResult, email));
           req.session.isAuthenticated = true;
           req.session.user = new UserSession(user);
           res.redirect('/');

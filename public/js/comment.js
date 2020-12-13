@@ -18,7 +18,7 @@ const CommentController = (function () {
     },
   };
 
-  const BACKEND_API = 'http://localhost:3000/api';
+  const BACKEND_API = $('meta[name="backendApi"]').attr('content');
 
   const init = function () {
     registerEvents();

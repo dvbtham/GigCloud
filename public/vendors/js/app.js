@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip();
   const inputDate = $('.datetimepicker');
 
   if (inputDate) {
